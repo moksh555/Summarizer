@@ -19,17 +19,7 @@ from flask_cors import CORS
 # The client gets the API key from the environment variable `GEMINI_API_KEY`.
 load_dotenv()
 app = Flask(__name__)
-CORS(app, resources={
-    r"/summaries": {
-        "origins": [
-            "http://localhost:5173",
-            "https://your-frontend-domain.vercel.app"  # optional
-        ],
-        "methods": ["POST", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization", "Accept"],
-        # "supports_credentials": False,  # leave off unless you need cookies
-    }
-})
+
 DEFAULT_PROMPT="""You are an AI assistant that summarizes entire documents given in text form seperated by Page in detail.
         Your job is to create a structured summary that follows this exact format:
 
