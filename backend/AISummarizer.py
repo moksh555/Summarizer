@@ -55,7 +55,7 @@ def extract_text_from_pdf(fileHandle):
     reader = PdfReader(fileHandle)
     for i, page in enumerate(reader.pages):
         page_text = page.extract_text() or ""
-        text.append(f"Page ${i+1}: page_text")
+        text.append(f"Page ${i+1}: {page_text}")
     return "\n\n".join(text)
     
 
@@ -177,7 +177,6 @@ def summarixe_pdf():
     except Exception as e:
         return jsonify({"status": "fail", "message": str(e)}), 500
 
-if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True)
+
 
 
