@@ -148,7 +148,7 @@ def summarixe_pdf():
         pdf = request.files['file']
 
         if not pdf.filename.lower().endswith(".pdf"):
-            return jsonify({"satus": "fail", "message": "Please uplaod a PDF"}), 400
+            return jsonify({"status": "fail", "message": "Please uplaod a PDF"}), 400
         
         
         file_bytes = pdf.read()
