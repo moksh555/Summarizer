@@ -83,25 +83,13 @@ def AIModel(text, prompt):
     return completion.choices[0].message.parsed
 
 def getCreds(SCOPES):
-    creds = None
-  # The file token.json stores the user's access and refresh tokens, and is
-  # created automatically when the authorization flow completes for the first
-  # time.
-    credentials = base64.b64decode(os.getenv("GOOGLE_OAUTH_JSON_BASE64")).decode("utf-8")
-    if os.path.exists("token.json"):
-        creds = Credentials.from_authorized_user_file("token.json", SCOPES)
-  # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_config(
-            json.load(credentials), SCOPES
-        )
-        creds = flow.run_local_server(port=0)
-    # Save the credentials for the next run
-    with open("token.json", "w") as token:
-      token.write(creds.to_json())
+    token_json = os.getenv("GOOGLE_TOKEN_JSON")
+    if not token_json:
+        raise RuntimeError("Missing GOOGLE_TOKEN_JSON env var. Paste your token.json there.")
+    creds = Credentials.from_authorized_user_info(json.loads(token_json), SCOPES)
+    if not creds.valid and creds.refresh_token:
+        creds.refresh(Request())
+    return creds
 # google 
 
 def createDoc(title, creds):    
