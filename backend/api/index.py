@@ -137,18 +137,18 @@ def insertToFolder(DOCUMENT_ID, creds):
 
 @app.get("/")
 def helloMessage():
-    return jsonify({"status": "success", "message": "hello"}), 201
+    return jsonify({"status": True, "message": "hello"}), 201
 
         
 @app.post("/summaries")
 def summarixe_pdf():
     try:
         if 'file' not in request.files:
-            return jsonify({"status": "fail", "message": "Please upload a file."}), 400
+            return jsonify({"status": False, "message": "Please upload a file."}), 400
         pdf = request.files['file']
 
         if not pdf.filename.lower().endswith(".pdf"):
-            return jsonify({"status": "fail", "message": "Please uplaod a PDF"}), 400
+            return jsonify({"status": False, "message": "Please uplaod a PDF"}), 400
         
         
         file_bytes = pdf.read()
@@ -159,11 +159,11 @@ def summarixe_pdf():
         documentId, service, creds = createDoc(response.title, creds)
         insertText(response.summary, documentId, service, creds)
         insertToFolder(documentId, creds)
-        return (jsonify({"status": "sucess", "documentId":documentId, "fileName": response.title})), 201
+        return (jsonify({"status": True, "documentId":documentId, "fileName": response.title})), 201
     except HttpError as gerr:
-        return jsonify({"status": "fail", "message": str(gerr)}), 502
+        return jsonify({"status": False, "message": str(gerr)}), 502
     except Exception as e:
-        return jsonify({"status": "fail", "message": str(e)}), 500
+        return jsonify({"status": False, "message": str(e)}), 500
 
 
 
