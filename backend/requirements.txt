@@ -1,0 +1,8 @@
+Flask
+python-dotenv
+openai
+pydantic
+pypdf
+google-auth
+google-auth-oauthlib
+google-api-python-client

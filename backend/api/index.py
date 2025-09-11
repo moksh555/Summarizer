@@ -55,7 +55,7 @@ def extract_text_from_pdf(fileHandle):
     reader = PdfReader(fileHandle)
     for i, page in enumerate(reader.pages):
         page_text = page.extract_text() or ""
-        text.append(f"Page ${i+1}: {page_text}")
+        text.append(f"Page {i+1}: {page_text}")
     return "\n\n".join(text)
     
 
@@ -143,7 +143,7 @@ def helloMessage():
 @app.post("/summaries")
 def summarixe_pdf():
     try:
-        if 'file' not in request.file():
+        if 'file' not in request.files:
             return jsonify({"status": "fail", "message": "Please upload a file."}), 400
         pdf = request.files['file']
 
