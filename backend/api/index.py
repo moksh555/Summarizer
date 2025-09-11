@@ -137,7 +137,7 @@ def insertToFolder(DOCUMENT_ID, creds):
 
 @app.get("/")
 def helloMessage():
-    return jsonify({"status": "sucess", "message": "hello"}), 201
+    return jsonify({"status": "success", "message": "hello"}), 201
 
         
 @app.post("/summaries")
