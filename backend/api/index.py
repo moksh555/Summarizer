@@ -83,7 +83,7 @@ def AIModel(text, prompt):
     return completion.choices[0].message.parsed
 
 def getCreds(SCOPES):
-    token_json = os.getenv("GOOGLE_TOKEN_JSON")
+    token_json = base64.b64decode(os.getenv("GOOGLE_TOKEN_JSON_BASE64")).decode()
     if not token_json:
         raise RuntimeError("Missing GOOGLE_TOKEN_JSON env var. Paste your token.json there.")
     creds = Credentials.from_authorized_user_info(json.loads(token_json), SCOPES)
